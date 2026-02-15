@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://cm6jslnv1v5e8"]
+
+[ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="1_5yleq"]
+[ext_resource type="Script" uid="uid://dvlmcq3csw3e4" path="res://Lobby.gd" id="2_ylpcl"]
+
+[node name="Menu" type="Control" unique_id=292604948]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5yleq")
+script = ExtResource("2_ylpcl")
+create_button_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer/CreateLobbyButton")
+scan_button_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer/ScanServersButton")
+name_player_line_edit_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/NameLineEdit")
+name_lobby_line_edit_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/NameLobbyLineEdit")
+list_players_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer")
+list_rooms_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/ScrollContainer/VBoxContainer")
+menu_screen_path = NodePath("Menu")
+lobby_screen_path = NodePath("Lobby")
+leave_button_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer/LeaveButton")
+start_button_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer/StartButton")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1985068323]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Menu" type="MarginContainer" parent="." unique_id=485323131]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="Menu" unique_id=577871639]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel" unique_id=1216268681]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Panel/MarginContainer" unique_id=361945928]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer" unique_id=733813015]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="CreateLobbyButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1002571190]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = ""
+
+[node name="ScanServersButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1692085079]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = ""
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer" unique_id=295675695]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Panel" type="Panel" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=152444922]
+self_modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel" unique_id=1498634398]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer" unique_id=800733968]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/ScrollContainer" unique_id=1392590668]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NameLineEdit" type="LineEdit" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=555965098]
+layout_mode = 2
+text = "Player"
+placeholder_text = "YOUR NICKNAME"
+
+[node name="NameLobbyLineEdit" type="LineEdit" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1943811299]
+layout_mode = 2
+text = "Room"
+placeholder_text = "NAME LOBBY"
+
+[node name="Lobby" type="MarginContainer" parent="." unique_id=1928308437]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="Lobby" unique_id=572800549]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Lobby/Panel" unique_id=1326464292]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Lobby/Panel/MarginContainer" unique_id=741204344]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Panel" type="Panel" parent="Lobby/Panel/MarginContainer/HBoxContainer" unique_id=1993618367]
+self_modulate = Color(0.52, 0.52, 0.52, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer/Panel" unique_id=2112074029]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=6688309]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer" unique_id=1114166984]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LeaveButton" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1748550604]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = " Leave "
+
+[node name="StartButton" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1180690036]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = " Start "
+
+[node name="Button" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=599042790]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = " [-] "
+
+[node name="Error" type="AcceptDialog" parent="." unique_id=608098445]
+oversampling_override = 1.0
+title = ""
+initial_position = 1
+size = Vector2i(144, 184)
+borderless = true
