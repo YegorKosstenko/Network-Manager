@@ -12,16 +12,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_5yleq")
 script = ExtResource("2_ylpcl")
-create_button_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer/CreateLobbyButton")
-scan_button_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer/ScanServersButton")
-name_player_line_edit_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/NameLineEdit")
-name_lobby_line_edit_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/NameLobbyLineEdit")
-list_players_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer")
-list_rooms_path = NodePath("Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/ScrollContainer/VBoxContainer")
+start_create_room_button_path = NodePath("Menu/Panel/MC/HBC/VBC/StartCreateRoomButton")
+create_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/CreateRoomButton")
+scan_button_path = NodePath("Menu/Panel/MC/HBC/VBC/ScanServersButton")
+name_player_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/PlayerNameLineEdit")
+name_room_line_edit_path = NodePath("CreateRoom/Panel/MC/VBC/NameRoomHBC/LineEdit")
+create_room_screen_path = NodePath("CreateRoom")
+list_players_path = NodePath("Lobby/Panel/MC/HBC/Panel/MC/ListPlayersVBC")
+list_rooms_path = NodePath("Menu/Panel/MC/HBC/VBC2/Panel/MC/ScrollContainer/ListRoomsVBC")
 menu_screen_path = NodePath("Menu")
 lobby_screen_path = NodePath("Lobby")
-leave_button_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer/LeaveButton")
-start_button_path = NodePath("Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer/StartButton")
+leave_button_path = NodePath("Lobby/Panel/MC/HBC/VBC/LeaveButton")
+start_button_path = NodePath("Lobby/Panel/MC/HBC/VBC/StartButton")
+search_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/SearchLineEdit")
+back_from_create_room_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/BackButton")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1985068323]
 layout_mode = 1
@@ -46,14 +50,14 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_bottom = 2
 
 [node name="Panel" type="Panel" parent="Menu" unique_id=577871639]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel" unique_id=1216268681]
+[node name="MC" type="MarginContainer" parent="Menu/Panel" unique_id=1216268681]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,36 +69,48 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Panel/MarginContainer" unique_id=361945928]
+[node name="HBC" type="HBoxContainer" parent="Menu/Panel/MC" unique_id=361945928]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer" unique_id=733813015]
+[node name="VBC" type="VBoxContainer" parent="Menu/Panel/MC/HBC" unique_id=733813015]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="CreateLobbyButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1002571190]
+[node name="StartCreateRoomButton" type="Button" parent="Menu/Panel/MC/HBC/VBC" unique_id=1002571190]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = ""
 
-[node name="ScanServersButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1692085079]
+[node name="MatchingButton" type="Button" parent="Menu/Panel/MC/HBC/VBC" unique_id=1687651506]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = ""
+
+[node name="ScanServersButton" type="Button" parent="Menu/Panel/MC/HBC/VBC" unique_id=1692085079]
+visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = ""
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer" unique_id=295675695]
+[node name="VBC2" type="VBoxContainer" parent="Menu/Panel/MC/HBC" unique_id=295675695]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Panel" type="Panel" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=152444922]
+[node name="SearchLineEdit" type="LineEdit" parent="Menu/Panel/MC/HBC/VBC2" unique_id=423253649]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Search room"
+
+[node name="Panel" type="Panel" parent="Menu/Panel/MC/HBC/VBC2" unique_id=152444922]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel" unique_id=1498634398]
+[node name="MC" type="MarginContainer" parent="Menu/Panel/MC/HBC/VBC2/Panel" unique_id=1498634398]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,23 +122,148 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer" unique_id=800733968]
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/Panel/MC/HBC/VBC2/Panel/MC" unique_id=800733968]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/ScrollContainer" unique_id=1392590668]
+[node name="ListRoomsVBC" type="VBoxContainer" parent="Menu/Panel/MC/HBC/VBC2/Panel/MC/ScrollContainer" unique_id=1392590668]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="NameLineEdit" type="LineEdit" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=555965098]
+[node name="PlayerNameLineEdit" type="LineEdit" parent="Menu/Panel/MC/HBC/VBC2" unique_id=877585773]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-text = "Player"
-placeholder_text = "YOUR NICKNAME"
+placeholder_text = "Your nickname"
 
-[node name="NameLobbyLineEdit" type="LineEdit" parent="Menu/Panel/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1943811299]
+[node name="CreateRoom" type="MarginContainer" parent="." unique_id=611993135]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 2
+
+[node name="Panel" type="Panel" parent="CreateRoom" unique_id=1002489499]
 layout_mode = 2
-text = "Room"
-placeholder_text = "NAME LOBBY"
+
+[node name="MC" type="MarginContainer" parent="CreateRoom/Panel" unique_id=1619300442]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBC" type="VBoxContainer" parent="CreateRoom/Panel/MC" unique_id=972926395]
+layout_mode = 2
+
+[node name="NameRoomHBC" type="HBoxContainer" parent="CreateRoom/Panel/MC/VBC" unique_id=1148624614]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CreateRoom/Panel/MC/VBC/NameRoomHBC" unique_id=518854077]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+placeholder_text = "Room name"
+max_length = 30
+
+[node name="TimeGameHBC" type="HBoxContainer" parent="CreateRoom/Panel/MC/VBC" unique_id=552693335]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MinusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1563245706]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="LineEdit" type="LineEdit" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1849052218]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time: 05:00"
+alignment = 1
+editable = false
+
+[node name="PlusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1459659394]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="NumberPlayersHBC" type="HBoxContainer" parent="CreateRoom/Panel/MC/VBC" unique_id=702086487]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MinusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=1979871904]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="LineEdit" type="LineEdit" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=905912845]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max. players: 6"
+alignment = 1
+editable = false
+
+[node name="PlusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=1615919906]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="Control" type="Control" parent="CreateRoom/Panel/MC/VBC" unique_id=339342441]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CreateRoom/Panel/MC/VBC/Control" unique_id=1004973722]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -29.5
+offset_right = 20.0
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "It's empty here for now :)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBC" type="HBoxContainer" parent="CreateRoom/Panel/MC/VBC" unique_id=1114627924]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CreateRoom/Panel/MC/VBC/HBC" unique_id=605524555]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BACK"
+
+[node name="CreateRoomButton" type="Button" parent="CreateRoom/Panel/MC/VBC/HBC" unique_id=101322463]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CREATE"
 
 [node name="Lobby" type="MarginContainer" parent="." unique_id=1928308437]
 visible = false
@@ -139,14 +280,14 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_bottom = 2
 
 [node name="Panel" type="Panel" parent="Lobby" unique_id=572800549]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Lobby/Panel" unique_id=1326464292]
+[node name="MC" type="MarginContainer" parent="Lobby/Panel" unique_id=1326464292]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,17 +299,17 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Lobby/Panel/MarginContainer" unique_id=741204344]
+[node name="HBC" type="VBoxContainer" parent="Lobby/Panel/MC" unique_id=741204344]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Panel" type="Panel" parent="Lobby/Panel/MarginContainer/HBoxContainer" unique_id=1993618367]
+[node name="Panel" type="Panel" parent="Lobby/Panel/MC/HBC" unique_id=1993618367]
 self_modulate = Color(0.52, 0.52, 0.52, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer/Panel" unique_id=2112074029]
+[node name="MC" type="MarginContainer" parent="Lobby/Panel/MC/HBC/Panel" unique_id=2112074029]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,25 +321,25 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=6688309]
+[node name="ListPlayersVBC" type="VBoxContainer" parent="Lobby/Panel/MC/HBC/Panel/MC" unique_id=6688309]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Lobby/Panel/MarginContainer/HBoxContainer" unique_id=1114166984]
+[node name="VBC" type="HBoxContainer" parent="Lobby/Panel/MC/HBC" unique_id=1114166984]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="LeaveButton" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1748550604]
+[node name="LeaveButton" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=1748550604]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = " Leave "
 
-[node name="StartButton" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1180690036]
+[node name="StartButton" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=1180690036]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = " Start "
 
-[node name="Button" type="Button" parent="Lobby/Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=599042790]
+[node name="Button" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=599042790]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = " [-] "

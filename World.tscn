@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://s2ybqqsorovw"]
+
+[ext_resource type="Script" uid="uid://dnlq1jgu11alb" path="res://World.gd" id="1_c6gwx"]
+[ext_resource type="Texture2D" uid="uid://cfy3dtkv6m33i" path="res://Resources/BackGround.svg" id="2_2dftf"]
+[ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="2_bcbcq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_js7pq"]
+font_size = 64
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 2)
+
+[node name="World" type="Node2D" unique_id=1966093873]
+script = ExtResource("1_c6gwx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2105127080]
+
+[node name="BackGround" type="Control" parent="CanvasLayer" unique_id=1077349622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bcbcq")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/BackGround" unique_id=2077118778]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2dftf")
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="CanvasLayer/BackGround" unique_id=539603009]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -29.5
+offset_right = 93.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "00:00"
+label_settings = SubResource("LabelSettings_js7pq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="CanvasLayer/BackGround" unique_id=1213983846]
+one_shot = true

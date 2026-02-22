@@ -2,6 +2,7 @@ extends Node
 
 
 var multiplayer_peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var self_id = null
 
 const MAX_PLAYERS : int = 9999
 const MAX_PLAYERS_ROOM : int = 6
@@ -10,7 +11,6 @@ const PORT : int = 9090
 
 var rooms : Dictionary = {}
 var is_server : bool = false
-
 
 signal update_rooms(data)
 signal update_players(data)
@@ -24,6 +24,8 @@ func _ready() -> void:
 		server_init()
 	else:
 		client_init()
+	
+	self_id = multiplayer.get_unique_id()
 
 
 func server_init():
@@ -51,8 +53,6 @@ func _on_player_disconnected(id):
 			for i in multiplayer.get_peers():
 				if i != id:
 					leave_room_remote.rpc_id(i, room_id, id)
-				#else:
-					#pass
 
 
 @rpc("any_peer", "call_remote", "reliable")
@@ -96,20 +96,15 @@ func join_room(room_id, name_player, player_id):
 	}
 	
 	rooms[room_id]["Players"][player_id] = player_data
-	join_room_remote.rpc(room_id, name_player, player_id)
+	join_room_remote.rpc(room_id, player_id, player_data)
 
 
 @rpc("authority", "call_remote", "reliable")
-func join_room_remote(room_id, name_player, player_id):
-	var player_data : Dictionary = {
-		"Name" = name_player,
-		"skin_id" = 0
-	}
-	
-	rooms[room_id]["Players"][player_id] = player_data
+func join_room_remote(room_id, player_id, new_player_data):
+	rooms[room_id]["Players"][player_id] = new_player_data
 	
 	for i in rooms[room_id]["Players"]:
-		if i == multiplayer.get_unique_id():
+		if i == self_id:
 			_update_players(room_id)
 		else:
 			_update_players.rpc_id(i, room_id)
@@ -144,14 +139,16 @@ func leave_room_remote(room_id, player_id):
 		
 		rooms.erase(player_id)
 		
-		for i in players_in_room:
-			if i == multiplayer.get_unique_id():
+		end_game.rpc_id(1, room_id)
+		
+		for i in players_in_room.keys():
+			if i == self_id:
 				_update_players(room_id)
 				leave.emit()
 			else:
 				_update_players.rpc_id(i, room_id)
 				_leave_room.rpc_id(i)
-			
+		
 		update_rooms.emit(rooms)
 		print("Work!")
 	
@@ -160,14 +157,18 @@ func leave_room_remote(room_id, player_id):
 			if rooms[room_id]["Players"].has(player_id):
 				rooms[room_id]["Players"].erase(player_id)
 			
-			if player_id == multiplayer.get_unique_id():
+			if player_id == self_id:
 				leave.emit()
+			else:
+				_leave_room.rpc_id(player_id)
 			
-			for i in rooms[room_id]["Players"]:
-				if i == multiplayer.get_unique_id():
+			for i in rooms[room_id]["Players"].keys():
+				if i == self_id:
 					_update_players(room_id)
 				else:
 					_update_players.rpc_id(i, room_id)
+					
+				
 	
 	update_rooms.emit(rooms)
 
@@ -179,6 +180,60 @@ func _leave_room():
 
 @rpc("any_peer", "call_remote", "reliable")
 func start_game(room_id):
+	if not is_server:
+		return
+	
+	start_game_remote.rpc(room_id)
+
+
+@rpc("authority", "call_remote", "reliable")
+func start_game_remote(room_id):
 	rooms[room_id]["Gaming"] = true
 	
+	if rooms.has(room_id):
+		for i in rooms[room_id]["Players"].keys():
+			load_world.rpc_id(i, room_id)
+	
 	update_rooms.emit(rooms)
+	
+	#print(rooms[room_id]["Players"])
+
+
+@rpc("any_peer", "call_local", "reliable")
+func load_world(room_id):
+	if has_node("/root/" + str(room_id)):
+		return
+	
+	var world = load("res://World.tscn").instantiate()
+	
+	get_node("/root/Menu").hide()
+	
+	world.name = str(room_id)
+	
+	if room_id == self_id:
+		world.host = true
+		
+	get_node("/root").add_child(world)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func end_game(room_id):
+	if not is_server:
+		return
+	
+	if rooms.has(int(room_id)):
+		rooms[int(room_id)]["Gaming"] = false
+		end_game_remote.rpc(room_id)
+
+
+@rpc("authority", "call_remote", "reliable")
+func end_game_remote(room_id):
+	if rooms.has(int(room_id)):
+		rooms[int(room_id)]["Gaming"] = false
+	
+	if has_node("/root/" + str(room_id)):
+		get_node("/root/" + str(room_id)).queue_free()
+	
+	get_node("/root/Menu").show()
+	
+	_update_rooms.rpc()

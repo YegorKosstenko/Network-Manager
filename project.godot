@@ -29,6 +29,8 @@ Network="*uid://buivo8rd15krc"
 
 [display]
 
+window/size/window_width_override=600
+window/size/window_height_override=300
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
