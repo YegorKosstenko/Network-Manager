@@ -2,6 +2,15 @@
 
 [ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="1_5yleq"]
 [ext_resource type="Script" uid="uid://dvlmcq3csw3e4" path="res://Lobby.gd" id="2_ylpcl"]
+[ext_resource type="Texture2D" uid="uid://ddtcsxa63cy0d" path="res://Resources/UIAtlas.svg" id="3_ylpcl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cx167"]
+texture = ExtResource("3_ylpcl")
+texture_margin_left = 4.0
+texture_margin_top = 12.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(216, 144, 44, 52)
 
 [node name="Menu" type="Control" unique_id=292604948]
 layout_mode = 3
@@ -14,18 +23,22 @@ theme = ExtResource("1_5yleq")
 script = ExtResource("2_ylpcl")
 start_create_room_button_path = NodePath("Menu/Panel/MC/HBC/VBC/StartCreateRoomButton")
 create_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/CreateRoomButton")
-scan_button_path = NodePath("Menu/Panel/MC/HBC/VBC/ScanServersButton")
+start_button_path = NodePath("Room/Panel/MC/HBC/VBC/StartButton")
+leave_button_path = NodePath("Room/Panel/MC/HBC/VBC/LeaveButton")
+back_from_create_room_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/BackButton")
+minus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/MinusButton")
+plus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/PlusButton")
 name_player_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/PlayerNameLineEdit")
 name_room_line_edit_path = NodePath("CreateRoom/Panel/MC/VBC/NameRoomHBC/LineEdit")
-create_room_screen_path = NodePath("CreateRoom")
-list_players_path = NodePath("Lobby/Panel/MC/HBC/Panel/MC/ListPlayersVBC")
-list_rooms_path = NodePath("Menu/Panel/MC/HBC/VBC2/Panel/MC/ScrollContainer/ListRoomsVBC")
-menu_screen_path = NodePath("Menu")
-lobby_screen_path = NodePath("Lobby")
-leave_button_path = NodePath("Lobby/Panel/MC/HBC/VBC/LeaveButton")
-start_button_path = NodePath("Lobby/Panel/MC/HBC/VBC/StartButton")
 search_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/SearchLineEdit")
-back_from_create_room_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/BackButton")
+create_room_screen_path = NodePath("CreateRoom")
+menu_screen_path = NodePath("Menu")
+room_screen_path = NodePath("Room")
+list_players_path = NodePath("Room/Panel/MC/HBC/Panel/MC/ListPlayersVBC")
+list_rooms_path = NodePath("Menu/Panel/MC/HBC/VBC2/Panel/MC/ScrollContainer/ListRoomsVBC")
+time_label_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/LineEdit/Label")
+room_time_label_path = NodePath("Room/Panel/MC/HBC/TimeLabel")
+error_dialog_path = NodePath("ErrorDialog")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1985068323]
 layout_mode = 1
@@ -88,12 +101,6 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = ""
 
-[node name="ScanServersButton" type="Button" parent="Menu/Panel/MC/HBC/VBC" unique_id=1692085079]
-visible = false
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = ""
-
 [node name="VBC2" type="VBoxContainer" parent="Menu/Panel/MC/HBC" unique_id=295675695]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -134,6 +141,7 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 placeholder_text = "Your nickname"
+max_length = 25
 
 [node name="CreateRoom" type="MarginContainer" parent="." unique_id=611993135]
 visible = false
@@ -190,20 +198,28 @@ layout_mode = 2
 [node name="MinusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1563245706]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-disabled = true
 text = "-"
 
-[node name="LineEdit" type="LineEdit" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1849052218]
+[node name="LineEdit" type="Panel" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1442980962]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Time: 05:00"
-alignment = 1
-editable = false
+theme_override_styles/panel = SubResource("StyleBoxTexture_cx167")
+
+[node name="Label" type="Label" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC/LineEdit" unique_id=1246350424]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time: 5:00"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/TimeGameHBC" unique_id=1459659394]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-disabled = true
 text = "+"
 
 [node name="NumberPlayersHBC" type="HBoxContainer" parent="CreateRoom/Panel/MC/VBC" unique_id=702086487]
@@ -216,12 +232,22 @@ layout_mode = 2
 disabled = true
 text = "-"
 
-[node name="LineEdit" type="LineEdit" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=905912845]
+[node name="LineEdit" type="Panel" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=69978324]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_cx167")
+
+[node name="Label" type="Label" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC/LineEdit" unique_id=1154545615]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Max. players: 6"
-alignment = 1
-editable = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=1615919906]
 custom_minimum_size = Vector2(100, 0)
@@ -265,7 +291,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "CREATE"
 
-[node name="Lobby" type="MarginContainer" parent="." unique_id=1928308437]
+[node name="Room" type="MarginContainer" parent="." unique_id=1928308437]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -284,10 +310,10 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 2
 
-[node name="Panel" type="Panel" parent="Lobby" unique_id=572800549]
+[node name="Panel" type="Panel" parent="Room" unique_id=572800549]
 layout_mode = 2
 
-[node name="MC" type="MarginContainer" parent="Lobby/Panel" unique_id=1326464292]
+[node name="MC" type="MarginContainer" parent="Room/Panel" unique_id=1326464292]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -299,17 +325,23 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="HBC" type="VBoxContainer" parent="Lobby/Panel/MC" unique_id=741204344]
+[node name="HBC" type="VBoxContainer" parent="Room/Panel/MC" unique_id=741204344]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 
-[node name="Panel" type="Panel" parent="Lobby/Panel/MC/HBC" unique_id=1993618367]
+[node name="TimeLabel" type="Label" parent="Room/Panel/MC/HBC" unique_id=830886998]
+layout_mode = 2
+text = "Time: 00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="Room/Panel/MC/HBC" unique_id=1993618367]
 self_modulate = Color(0.52, 0.52, 0.52, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MC" type="MarginContainer" parent="Lobby/Panel/MC/HBC/Panel" unique_id=2112074029]
+[node name="MC" type="MarginContainer" parent="Room/Panel/MC/HBC/Panel" unique_id=2112074029]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,32 +353,30 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="ListPlayersVBC" type="VBoxContainer" parent="Lobby/Panel/MC/HBC/Panel/MC" unique_id=6688309]
+[node name="ListPlayersVBC" type="VBoxContainer" parent="Room/Panel/MC/HBC/Panel/MC" unique_id=6688309]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="VBC" type="HBoxContainer" parent="Lobby/Panel/MC/HBC" unique_id=1114166984]
+[node name="VBC" type="HBoxContainer" parent="Room/Panel/MC/HBC" unique_id=1114166984]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 
-[node name="LeaveButton" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=1748550604]
+[node name="LeaveButton" type="Button" parent="Room/Panel/MC/HBC/VBC" unique_id=1748550604]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 3
 text = " Leave "
 
-[node name="StartButton" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=1180690036]
+[node name="StartButton" type="Button" parent="Room/Panel/MC/HBC/VBC" unique_id=1180690036]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 3
 text = " Start "
 
-[node name="Button" type="Button" parent="Lobby/Panel/MC/HBC/VBC" unique_id=599042790]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = " [-] "
-
-[node name="Error" type="AcceptDialog" parent="." unique_id=608098445]
+[node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=1606688636]
 oversampling_override = 1.0
-title = ""
-initial_position = 1
-size = Vector2i(144, 184)
+position = Vector2i(470, 213)
+size = Vector2i(212, 222)
 borderless = true
+theme_override_constants/buttons_separation = 30
+ok_button_text = " OK "

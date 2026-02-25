@@ -4,7 +4,6 @@ extends Node
 var multiplayer_peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var self_id = null
 
-const MAX_PLAYERS : int = 9999
 const MAX_PLAYERS_ROOM : int = 6
 const IP_ADDRESS : String = "127.0.0.1"
 const PORT : int = 9090
@@ -15,6 +14,7 @@ var is_server : bool = false
 signal update_rooms(data)
 signal update_players(data)
 signal leave
+signal error(number_text)
 
 
 func _ready() -> void:
@@ -44,19 +44,17 @@ func _on_player_disconnected(id):
 	if not is_server:
 		return
 	
-	###
 	var rooms_to_check = rooms.duplicate()
 	
 	for room_id in rooms_to_check:
 		if rooms.has(room_id) and rooms[room_id]["Players"].has(id):
-	###
 			for i in multiplayer.get_peers():
 				if i != id:
 					leave_room_remote.rpc_id(i, room_id, id)
 
 
 @rpc("any_peer", "call_remote", "reliable")
-func create_room(id_host, name_lobby, name_host):
+func create_room(id_host, name_room, name_host, time):
 	if not is_server:
 		return
 	
@@ -64,10 +62,11 @@ func create_room(id_host, name_lobby, name_host):
 		rooms.erase(id_host)
 	
 	rooms[id_host] = {
-		"Name_lobby" = name_lobby, 
+		"Name_room" = name_room, 
 		"Players" = {},
 		"Max_players" = 6,
 		"Name_host" = name_host,
+		"Time" = time,
 		"Gaming" = false
 	}
 	
@@ -88,6 +87,7 @@ func join_room(room_id, name_player, player_id):
 		return
 	
 	if rooms[room_id]["Players"].size() == rooms[room_id]["Max_players"]:
+		error.emit(3)
 		return
 	
 	var player_data : Dictionary = {
@@ -145,9 +145,11 @@ func leave_room_remote(room_id, player_id):
 			if i == self_id:
 				_update_players(room_id)
 				leave.emit()
+				error.emit(0)
 			else:
 				_update_players.rpc_id(i, room_id)
 				_leave_room.rpc_id(i)
+				_error.rpc_id(i, 0)
 		
 		update_rooms.emit(rooms)
 		print("Work!")
@@ -176,6 +178,11 @@ func leave_room_remote(room_id, player_id):
 @rpc("any_peer", "call_remote", "reliable")
 func _leave_room():
 	leave.emit()
+
+
+@rpc("any_peer" ,"call_remote", "reliable")
+func _error(number_text: int):
+	error.emit(number_text)
 
 
 @rpc("any_peer", "call_remote", "reliable")
@@ -209,6 +216,7 @@ func load_world(room_id):
 	get_node("/root/Menu").hide()
 	
 	world.name = str(room_id)
+	world.time = rooms[room_id]["Time"]
 	
 	if room_id == self_id:
 		world.host = true

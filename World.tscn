@@ -12,6 +12,8 @@ shadow_offset = Vector2(0, 2)
 
 [node name="World" type="Node2D" unique_id=1966093873]
 script = ExtResource("1_c6gwx")
+timer_path = NodePath("CanvasLayer/BackGround/Timer")
+label_timer_path = NodePath("CanvasLayer/BackGround/Label")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2105127080]
 
