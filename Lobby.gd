@@ -9,6 +9,8 @@ extends Control
 @export var back_from_create_room_button_path : NodePath
 @export var minus_30_sec_button_path : NodePath
 @export var plus_30_sec_button_path : NodePath
+@export var minus_one_player_button_path : NodePath
+@export var plus_one_player_button_path : NodePath
 
 @export_group("LineEdits")
 @export var name_player_line_edit_path : NodePath
@@ -27,6 +29,7 @@ extends Control
 @export_group("Labels")
 @export var time_label_path : NodePath
 @export var room_time_label_path : NodePath
+@export var max_players_label_path : NodePath
 
 @export_category("Others")
 @export var error_dialog_path : NodePath
@@ -39,6 +42,8 @@ extends Control
 @onready var back_from_create_room_button : Button = get_node(back_from_create_room_button_path)
 @onready var minus_30_sec_button : Button = get_node(minus_30_sec_button_path)
 @onready var plus_30_sec_button : Button = get_node(plus_30_sec_button_path)
+@onready var minus_one_player_button : Button = get_node(minus_one_player_button_path)
+@onready var plus_one_player_button : Button = get_node(plus_one_player_button_path)
 
 @onready var name_player_line_edit : LineEdit = get_node(name_player_line_edit_path)
 @onready var name_room_line_edit : LineEdit = get_node(name_room_line_edit_path)
@@ -53,14 +58,21 @@ extends Control
 
 @onready var time_label : Label = get_node(time_label_path)
 @onready var room_time_label : Label = get_node(room_time_label_path)
+@onready var max_players_label : Label = get_node(max_players_label_path)
 
 @onready var error_dialog : AcceptDialog = get_node(error_dialog_path)
 
 
 var time = 300: 
 	set(new_value):
-		time = clampi(new_value, 0, 900)
+		time = clampi(new_value, 30, 900)
+		@warning_ignore("integer_division")
 		time_label.text = "Time: %02d:%02d" % [time / 60, time % 60]
+
+var max_players = 6:
+	set(new_value):
+		max_players = clampi(new_value, 2, 6)
+		max_players_label.text = "Max. players: %d" % max_players
 
 var self_id = null
 var temp_room_id = 0
@@ -79,9 +91,12 @@ func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
 	search_line_edit.text_changed.connect(_on_search_text_changed)
 	back_from_create_room_button.pressed.connect(_on_back_from_create_room)
-	minus_30_sec_button.pressed.connect(func(): time += edit_time("minus"))
-	plus_30_sec_button.pressed.connect(func(): time += edit_time("plus"))
+	minus_30_sec_button.pressed.connect(func(): time -= 30)
+	plus_30_sec_button.pressed.connect(func(): time += 30)
+	minus_one_player_button.pressed.connect(func(): max_players -= 1)
+	plus_one_player_button.pressed.connect(func(): max_players += 1)
 	
+	@warning_ignore("integer_division")
 	time_label.text = "Time: %02d:%02d" % [time / 60, time % 60]
 	
 	Network.update_rooms.connect(_update_rooms)
@@ -108,7 +123,7 @@ func _on_create_pressed() -> void:
 		_call_error_dialog(2)
 		return
 	
-	Network.create_room.rpc_id(1, self_id, name_room_line_edit.text, name_player_line_edit.text, time)
+	Network.create_room.rpc_id(1, self_id, name_room_line_edit.text, name_player_line_edit.text, time, max_players)
 	menu_screen.visible = false
 	room_screen.visible = true
 	create_room_screen.visible = false
@@ -119,8 +134,6 @@ func _update_rooms(rooms_data: Dictionary) -> void:
 	if visible:
 		for i in list_rooms.get_children():
 			i.queue_free()
-		
-		print(rooms_data)
 		
 		for i in rooms_data:
 			var room = rooms_data[i]
@@ -206,9 +219,3 @@ func _on_back_from_create_room() -> void:
 func _call_error_dialog(number_text: int):
 	error_dialog.dialog_text = error_texts[number_text]
 	error_dialog.popup_centered()
-
-
-func edit_time(where):
-	match where:
-		"minus" : return -30
-		"plus" : return 30

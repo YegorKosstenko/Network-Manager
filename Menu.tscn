@@ -28,6 +28,8 @@ leave_button_path = NodePath("Room/Panel/MC/HBC/VBC/LeaveButton")
 back_from_create_room_button_path = NodePath("CreateRoom/Panel/MC/VBC/HBC/BackButton")
 minus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/MinusButton")
 plus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/PlusButton")
+minus_one_player_button_path = NodePath("CreateRoom/Panel/MC/VBC/NumberPlayersHBC/MinusButton")
+plus_one_player_button_path = NodePath("CreateRoom/Panel/MC/VBC/NumberPlayersHBC/PlusButton")
 name_player_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/PlayerNameLineEdit")
 name_room_line_edit_path = NodePath("CreateRoom/Panel/MC/VBC/NameRoomHBC/LineEdit")
 search_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/SearchLineEdit")
@@ -38,6 +40,7 @@ list_players_path = NodePath("Room/Panel/MC/HBC/Panel/MC/ListPlayersVBC")
 list_rooms_path = NodePath("Menu/Panel/MC/HBC/VBC2/Panel/MC/ScrollContainer/ListRoomsVBC")
 time_label_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/LineEdit/Label")
 room_time_label_path = NodePath("Room/Panel/MC/HBC/TimeLabel")
+max_players_label_path = NodePath("CreateRoom/Panel/MC/VBC/NumberPlayersHBC/LineEdit/Label")
 error_dialog_path = NodePath("ErrorDialog")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1985068323]
@@ -144,7 +147,6 @@ placeholder_text = "Your nickname"
 max_length = 25
 
 [node name="CreateRoom" type="MarginContainer" parent="." unique_id=611993135]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -229,7 +231,6 @@ layout_mode = 2
 [node name="MinusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=1979871904]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-disabled = true
 text = "-"
 
 [node name="LineEdit" type="Panel" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=69978324]
@@ -252,7 +253,6 @@ vertical_alignment = 1
 [node name="PlusButton" type="Button" parent="CreateRoom/Panel/MC/VBC/NumberPlayersHBC" unique_id=1615919906]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-disabled = true
 text = "+"
 
 [node name="Control" type="Control" parent="CreateRoom/Panel/MC/VBC" unique_id=339342441]

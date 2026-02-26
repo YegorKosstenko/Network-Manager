@@ -54,7 +54,7 @@ func _on_player_disconnected(id):
 
 
 @rpc("any_peer", "call_remote", "reliable")
-func create_room(id_host, name_room, name_host, time):
+func create_room(id_host, name_room, name_host, time, max_players):
 	if not is_server:
 		return
 	
@@ -64,7 +64,7 @@ func create_room(id_host, name_room, name_host, time):
 	rooms[id_host] = {
 		"Name_room" = name_room, 
 		"Players" = {},
-		"Max_players" = 6,
+		"Max_players" = max_players,
 		"Name_host" = name_host,
 		"Time" = time,
 		"Gaming" = false
@@ -87,7 +87,8 @@ func join_room(room_id, name_player, player_id):
 		return
 	
 	if rooms[room_id]["Players"].size() == rooms[room_id]["Max_players"]:
-		error.emit(3)
+		_error.rpc_id(player_id, 3)
+		print(rooms[room_id]["Players"])
 		return
 	
 	var player_data : Dictionary = {
@@ -127,8 +128,9 @@ func _update_players(room_id):
 func leave_room(room_id, player_id):
 	if not is_server:
 		return
-		
+	
 	if rooms.has(room_id):
+		leave_room_remote(room_id, player_id)
 		leave_room_remote.rpc(room_id, player_id)
 
 
@@ -139,21 +141,21 @@ func leave_room_remote(room_id, player_id):
 		
 		rooms.erase(player_id)
 		
-		end_game.rpc_id(1, room_id)
+		end_game(room_id)
 		
 		for i in players_in_room.keys():
 			if i == self_id:
 				_update_players(room_id)
 				leave.emit()
-				error.emit(0)
+				if i != room_id:
+					error.emit(0)
 			else:
 				_update_players.rpc_id(i, room_id)
 				_leave_room.rpc_id(i)
-				_error.rpc_id(i, 0)
+				if i != room_id:
+					_error.rpc_id(i, 0)
 		
 		update_rooms.emit(rooms)
-		print("Work!")
-	
 	else:
 		if rooms.has(room_id):
 			if rooms[room_id]["Players"].has(player_id):
@@ -170,8 +172,6 @@ func leave_room_remote(room_id, player_id):
 				else:
 					_update_players.rpc_id(i, room_id)
 					
-				
-	
 	update_rooms.emit(rooms)
 
 
@@ -202,8 +202,6 @@ func start_game_remote(room_id):
 			load_world.rpc_id(i, room_id)
 	
 	update_rooms.emit(rooms)
-	
-	#print(rooms[room_id]["Players"])
 
 
 @rpc("any_peer", "call_local", "reliable")
