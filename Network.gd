@@ -88,7 +88,6 @@ func join_room(room_id, name_player, player_id):
 	
 	if rooms[room_id]["Players"].size() == rooms[room_id]["Max_players"]:
 		_error.rpc_id(player_id, 3)
-		print(rooms[room_id]["Players"])
 		return
 	
 	var player_data : Dictionary = {
@@ -141,7 +140,10 @@ func leave_room_remote(room_id, player_id):
 		
 		rooms.erase(player_id)
 		
-		end_game(room_id)
+		if is_server:
+			end_game(room_id)
+		else:
+			end_game.rpc_id(1, room_id)
 		
 		for i in players_in_room.keys():
 			if i == self_id:

@@ -25,7 +25,7 @@ driver/enable_input=true
 
 [autoload]
 
-Network="*uid://buivo8rd15krc"
+Network="*res://Network.gd"
 
 [display]
 

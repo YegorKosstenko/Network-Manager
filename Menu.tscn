@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cm6jslnv1v5e8"]
 
 [ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="1_5yleq"]
-[ext_resource type="Script" uid="uid://dvlmcq3csw3e4" path="res://Lobby.gd" id="2_ylpcl"]
+[ext_resource type="Script" uid="uid://bhffwp717osw3" path="res://Lobby.gd" id="2_ylpcl"]
 [ext_resource type="Texture2D" uid="uid://ddtcsxa63cy0d" path="res://Resources/UIAtlas.svg" id="3_ylpcl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cx167"]
@@ -147,6 +147,7 @@ placeholder_text = "Your nickname"
 max_length = 25
 
 [node name="CreateRoom" type="MarginContainer" parent="." unique_id=611993135]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

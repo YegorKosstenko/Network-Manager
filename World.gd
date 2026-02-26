@@ -34,4 +34,3 @@ func _end_game():
 	game = false
 	if host:
 		Network.end_game.rpc_id(1, self.name)
-		#set_process(false)
