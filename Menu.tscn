@@ -3,6 +3,8 @@
 [ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="1_5yleq"]
 [ext_resource type="Script" uid="uid://bhffwp717osw3" path="res://Lobby.gd" id="2_ylpcl"]
 [ext_resource type="Texture2D" uid="uid://ddtcsxa63cy0d" path="res://Resources/UIAtlas.svg" id="3_ylpcl"]
+[ext_resource type="Texture2D" uid="uid://cm4l15742ivar" path="res://Resources/0.svg" id="4_cx167"]
+[ext_resource type="AudioStream" uid="uid://c77ufmx7xnv7d" path="res://BGMCW2FM.ogg" id="5_dolsu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cx167"]
 texture = ExtResource("3_ylpcl")
@@ -11,6 +13,9 @@ texture_margin_top = 12.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(216, 144, 44, 52)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ylpcl"]
+font_size = 24
 
 [node name="Menu" type="Control" unique_id=292604948]
 layout_mode = 3
@@ -30,7 +35,9 @@ minus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/MinusBu
 plus_30_sec_button_path = NodePath("CreateRoom/Panel/MC/VBC/TimeGameHBC/PlusButton")
 minus_one_player_button_path = NodePath("CreateRoom/Panel/MC/VBC/NumberPlayersHBC/MinusButton")
 plus_one_player_button_path = NodePath("CreateRoom/Panel/MC/VBC/NumberPlayersHBC/PlusButton")
-name_player_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/PlayerNameLineEdit")
+connect_button_path = NodePath("BeginPanel/Button")
+skin_button_path = NodePath("BeginPanel/HBoxContainer/SkinButton")
+name_player_line_edit_path = NodePath("BeginPanel/HBoxContainer/LineEdit")
 name_room_line_edit_path = NodePath("CreateRoom/Panel/MC/VBC/NameRoomHBC/LineEdit")
 search_line_edit_path = NodePath("Menu/Panel/MC/HBC/VBC2/SearchLineEdit")
 create_room_screen_path = NodePath("CreateRoom")
@@ -53,6 +60,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Menu" type="MarginContainer" parent="." unique_id=485323131]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -139,12 +147,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="PlayerNameLineEdit" type="LineEdit" parent="Menu/Panel/MC/HBC/VBC2" unique_id=877585773]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-placeholder_text = "Your nickname"
-max_length = 25
 
 [node name="CreateRoom" type="MarginContainer" parent="." unique_id=611993135]
 visible = false
@@ -374,6 +376,53 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = " Start "
 
+[node name="BeginPanel" type="VBoxContainer" parent="." unique_id=1299033853]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -129.0
+offset_right = 350.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BeginPanel" unique_id=553046733]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="BeginPanel/HBoxContainer" unique_id=1368680293]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Your nickname"
+alignment = 1
+max_length = 20
+caret_blink = true
+
+[node name="SkinButton" type="Button" parent="BeginPanel/HBoxContainer" unique_id=1194688113]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+disabled = true
+icon = ExtResource("4_cx167")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button" type="Button" parent="BeginPanel" unique_id=382854379]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "JOIN"
+
+[node name="Label" type="Label" parent="BeginPanel" unique_id=949044038]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Make sure we are connected to the internet"
+label_settings = SubResource("LabelSettings_ylpcl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=1606688636]
 oversampling_override = 1.0
 position = Vector2i(470, 213)
@@ -381,3 +430,7 @@ size = Vector2i(212, 222)
 borderless = true
 theme_override_constants/buttons_separation = 30
 ok_button_text = " OK "
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1970894618]
+stream = ExtResource("5_dolsu")
+autoplay = true

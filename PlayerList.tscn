@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ihij7grem7c1"]
+
+[ext_resource type="FontFile" uid="uid://c70t5j1hgpqa7" path="res://Resources/conthrax-sb.ttf" id="1_uj8qy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ubdy3"]
+font = ExtResource("1_uj8qy")
+font_size = 48
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uj8qy"]
+color = Color(1, 1, 1, 0.392157)
+grow_begin = -12.0
+grow_end = -12.0
+thickness = 8
+
+[node name="PlayerList" type="HBoxContainer" unique_id=323941615]
+offset_right = 342.0
+offset_bottom = 59.0
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="." unique_id=1143449161]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_ubdy3")
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=584224883]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxLine_uj8qy")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1154162083]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ubdy3")
+horizontal_alignment = 2
+vertical_alignment = 1

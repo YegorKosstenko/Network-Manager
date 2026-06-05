@@ -1,21 +1,83 @@
-[gd_scene format=3 uid="uid://s2ybqqsorovw"]
+[gd_scene format=4 uid="uid://s2ybqqsorovw"]
 
-[ext_resource type="Script" uid="uid://dnlq1jgu11alb" path="res://World.gd" id="1_c6gwx"]
+[ext_resource type="Script" uid="uid://xbajsra7qoc1" path="res://World.gd" id="1_c6gwx"]
 [ext_resource type="Texture2D" uid="uid://cfy3dtkv6m33i" path="res://Resources/BackGround.svg" id="2_2dftf"]
 [ext_resource type="Theme" uid="uid://bm5i4ahy2kbt4" path="res://Resources/Standard.tres" id="2_bcbcq"]
+[ext_resource type="TileSet" uid="uid://dcalgv6ludqb0" path="res://Resources/WorldTiles.tres" id="2_js7pq"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://Joystick/Scn/JoystickScene.tscn" id="5_p1v5b"]
+[ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://Joystick/Textures/JoystickTipArrows.png" id="6_wygdx"]
+[ext_resource type="Texture2D" uid="uid://dxf7id5okp52k" path="res://Joystick/Textures/JoystickTipFire.png" id="7_wygdx"]
+[ext_resource type="Texture2D" uid="uid://bb173tq305bxc" path="res://Resources/HUI.svg" id="8_bah7m"]
+[ext_resource type="Script" uid="uid://p2ima3x4r1kj" path="res://PlayersList.gd" id="9_fv4w7"]
+[ext_resource type="PackedScene" uid="uid://ihij7grem7c1" path="res://PlayerList.tscn" id="10_fvag4"]
+[ext_resource type="AudioStream" uid="uid://bmxs6qunxhuh0" path="res://BackGroundMusic.ogg" id="11_kva58"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kva58"]
+atlas = ExtResource("8_bah7m")
+region = Rect2(0, 97, 464, 47)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kva58"]
+font_size = 48
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.6509804)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_js7pq"]
-font_size = 64
-shadow_size = 16
-shadow_color = Color(0, 0, 0, 1)
+font_size = 32
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.6509804)
 shadow_offset = Vector2(0, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv4w7"]
+atlas = ExtResource("8_bah7m")
+region = Rect2(0, 48, 512, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvag4"]
+atlas = ExtResource("8_bah7m")
+region = Rect2(0, 0, 512, 41)
 
 [node name="World" type="Node2D" unique_id=1966093873]
 script = ExtResource("1_c6gwx")
 timer_path = NodePath("CanvasLayer/BackGround/Timer")
-label_timer_path = NodePath("CanvasLayer/BackGround/Label")
+label_timer_path = NodePath("HUI/Control/ActionPanel/HBC/TimerLabel")
+
+[node name="BackLayer" type="TileMapLayer" parent="." unique_id=1120283681]
+tile_map_data = PackedByteArray("AADw/wAAAQAIAAMAAADx/wAAAQAJAAMAAADy/wAAAQAJAAMAAADz/wAAAQAJAAMAAAD0/wAAAQAJAAMAAAD1/wAAAQAHAAIAAAD1////AQAHAAEAAAD0////AQAKAAAAAADz////AQAKAAAAAADy////AQAKAAAAAADx////AQAKAAAAAADw////AQAIAAAAAAAKAAAAAQAEAAIAAAALAAAAAQAJAAMAAAAMAAAAAQAJAAMAAAANAAAAAQAJAAMAAAAOAAAAAQAJAAMAAAAPAAAAAQALAAMAAAAPAP//AQALAAAAAAAOAP//AQAKAAAAAAANAP//AQAKAAAAAAAMAP//AQAKAAAAAAALAP//AQAKAAAAAAAKAP//AQAEAAEAAADw/wkAAQAIAAEAAADx/wkAAQAJAAIAAADy/wkAAQAJAAIAAADz/wkAAQAJAAIAAAD0/wkAAQAJAAIAAAD1/wkAAQAJAAIAAAD2/wkAAQAJAAIAAAD4/wkAAQAJAAIAAAD3/wkAAQAJAAIAAAD6/wkAAQAJAAIAAAD5/wkAAQAJAAIAAAD8/wkAAQAJAAIAAAD7/wkAAQAJAAIAAAD9/wkAAQAJAAIAAAD+/wkAAQAJAAIAAAD//wkAAQAJAAIAAAAAAAkAAQAJAAIAAAABAAkAAQAJAAIAAAACAAkAAQAJAAIAAAADAAkAAQAJAAIAAAAEAAkAAQAJAAIAAAAFAAkAAQAJAAIAAAAGAAkAAQAJAAIAAAAHAAkAAQAJAAIAAAAIAAkAAQAJAAIAAAAJAAkAAQAJAAIAAAAKAAkAAQAJAAIAAAALAAkAAQAJAAIAAAAMAAkAAQAJAAIAAAANAAkAAQAJAAIAAAAOAAkAAQAGAAEAAAAPAAkAAQALAAAAAAAPAAoAAQALAAMAAAAOAAoAAQAJAAMAAAANAAoAAQAJAAMAAAAMAAoAAQAJAAMAAAALAAoAAQAJAAMAAAAKAAoAAQAKAAMAAAAJAAoAAQAJAAMAAAAIAAoAAQAJAAMAAAAHAAoAAQAJAAMAAAAGAAoAAQAJAAMAAAAFAAoAAQAGAAIAAAAEAAoAAQAFAAIAAAADAAoAAQAJAAMAAAACAAoAAQAJAAMAAADw/woAAQAIAAMAAADx/woAAQAJAAMAAADy/woAAQAJAAMAAADz/woAAQAJAAMAAAD0/woAAQAJAAMAAAD1/woAAQAKAAMAAAD2/woAAQAJAAMAAAD3/woAAQAJAAMAAAD4/woAAQAJAAMAAAD5/woAAQAJAAMAAAD6/woAAQAFAAIAAAD7/woAAQAGAAIAAAD8/woAAQAJAAMAAAD9/woAAQAJAAMAAAABAAoAAQAJAAMAAAAAAAoAAQAJAAMAAAD//woAAQAJAAMAAAD+/woAAQAJAAMAAADw/wgAAQAIAAAAAADx/wgAAQAKAAAAAADy/wgAAQAKAAAAAADz/wgAAQAKAAAAAAD0/wgAAQAKAAAAAAD1/wgAAQAJAAAAAAD2/wgAAQAKAAAAAAD4/wgAAQAKAAAAAAD3/wgAAQAKAAAAAAD5/wgAAQAKAAAAAAD6/wgAAQAFAAEAAAD7/wgAAQAGAAEAAAD8/wgAAQAKAAAAAAD9/wgAAQAKAAAAAAD+/wgAAQAKAAAAAAD//wgAAQAKAAAAAAAAAAgAAQAKAAAAAAABAAgAAQAKAAAAAAACAAgAAQAKAAAAAAADAAgAAQAKAAAAAAAEAAgAAQAFAAEAAAAFAAgAAQAGAAEAAAAGAAgAAQAKAAAAAAAHAAgAAQAKAAAAAAAIAAgAAQAKAAAAAAAJAAgAAQAKAAAAAAAKAAgAAQAJAAAAAAALAAgAAQAKAAAAAAAMAAgAAQAKAAAAAAANAAgAAQAKAAAAAAAOAAgAAQALAAAAAAD6/wUAAQAIAAEAAAD6/wYAAQAIAAEAAAD6/wcAAQAIAAEAAAD6/wsAAQAIAAEAAAD6/wwAAQAIAAEAAAD6/w0AAQAIAAMAAAD7/w0AAQALAAMAAAD7/wwAAQALAAIAAAD7/wsAAQALAAIAAAD7/wcAAQALAAIAAAD7/wYAAQALAAIAAAD7/wUAAQALAAIAAAAEAAUAAQAIAAEAAAAEAAYAAQAIAAEAAAAEAAcAAQAIAAEAAAAEAAsAAQAIAAEAAAAEAAwAAQAIAAEAAAAEAA0AAQAIAAMAAAAFAA0AAQALAAMAAAAFAAwAAQALAAIAAAAFAAsAAQALAAIAAAAFAAcAAQALAAIAAAAFAAYAAQALAAIAAAAFAAUAAQALAAIAAAD7/wQAAQALAAEAAAD8/wQAAQACAAMAAAD9/wQAAQACAAMAAAD+/wQAAQACAAMAAAD//wQAAQACAAMAAAAAAAQAAQACAAMAAAABAAQAAQACAAMAAAACAAQAAQACAAMAAAADAAQAAQACAAMAAAAEAAQAAQAIAAIAAAD7//v/AQALAAEAAAD7//z/AQALAAIAAAD7//3/AQALAAIAAAD7//7/AQALAAIAAAD7////AQALAAIAAAD7/wAAAQALAAIAAAD7/wEAAQALAAIAAAD7/wIAAQALAAIAAAD7/wMAAQALAAIAAAD7//r/AQALAAIAAAD8//v/AQACAAMAAAD9//v/AQACAAMAAAD+//v/AQACAAMAAAD///v/AQACAAMAAAAAAPv/AQACAAMAAAABAPv/AQACAAMAAAACAPv/AQACAAMAAAADAPv/AQACAAMAAAAEAPv/AQAIAAIAAAAEAPz/AQAIAAEAAAAEAP3/AQAIAAEAAAAEAP7/AQAIAAEAAAAEAP//AQAIAAEAAAAEAAAAAQAIAAEAAAAEAAEAAQAIAAEAAAAEAAIAAQAIAAEAAAAEAAMAAQAIAAEAAAD6//b/AQAIAAAAAAD6//f/AQAIAAEAAAD6//j/AQAIAAEAAAD6//n/AQAIAAEAAAD6//r/AQAIAAEAAAD7//n/AQALAAIAAAD7//j/AQALAAIAAAD7//f/AQALAAIAAAD7//b/AQALAAAAAAAEAPb/AQAIAAAAAAAEAPf/AQAIAAEAAAAEAPj/AQAIAAEAAAAEAPn/AQAIAAEAAAAEAPr/AQAIAAEAAAAFAPr/AQALAAIAAAAFAPn/AQALAAIAAAAFAPj/AQALAAIAAAAFAPf/AQALAAIAAAAFAPb/AQALAAAAAAD1//b/AQAAAAAAAAD1//f/AQAAAAEAAAD1//j/AQAAAAEAAAD1//n/AQAAAAEAAAD1//r/AQAAAAEAAAD1//v/AQAAAAEAAAD1//z/AQAAAAEAAAD1//3/AQADAAEAAAD1//7/AQAAAAEAAAD1/wEAAQAAAAEAAAD1/wIAAQADAAEAAAD1/wMAAQAAAAEAAAD1/wQAAQAAAAEAAAD1/wUAAQAAAAEAAAD1/wYAAQAAAAEAAAD1/wcAAQAAAAEAAAD1/wsAAQAAAAEAAAD1/wwAAQAAAAEAAAD1/w0AAQAAAAIAAAAKAPb/AQAAAAAAAAAKAPf/AQAAAAEAAAAKAPj/AQAAAAEAAAAKAPn/AQAAAAEAAAAKAPr/AQAAAAEAAAAKAPv/AQAAAAEAAAAKAP3/AQABAAEAAAAKAPz/AQAAAAEAAAAKAP7/AQAAAAEAAAAKAAEAAQAAAAEAAAAKAAIAAQABAAEAAAAKAAMAAQAAAAEAAAAKAAQAAQAAAAEAAAAKAAUAAQAAAAEAAAAKAAYAAQAAAAEAAAAKAAcAAQAAAAEAAAAKAAsAAQAAAAEAAAAKAAwAAQAAAAEAAAAKAA0AAQAAAAIAAAD6//v/AQAIAAEAAAD6//z/AQAIAAEAAAD6//3/AQAIAAEAAAD6//7/AQAIAAEAAAD6////AQAIAAEAAAD6/wAAAQAIAAEAAAD6/wEAAQAIAAEAAAD6/wIAAQAIAAEAAAD6/wMAAQAIAAEAAAD6/wQAAQAIAAEAAAAFAPv/AQALAAIAAAAFAPz/AQALAAIAAAAFAP3/AQALAAIAAAAFAP7/AQALAAIAAAAFAP//AQALAAIAAAAFAAAAAQALAAIAAAAFAAEAAQALAAIAAAAFAAIAAQALAAIAAAAFAAMAAQALAAIAAAAFAAQAAQALAAIAAAD0//3/AQACAAMAAADz//3/AQACAAMAAADy//3/AQACAAMAAADx//3/AQACAAMAAADw//3/AQABAAMAAADw/wIAAQABAAMAAADx/wIAAQACAAMAAADy/wIAAQACAAMAAADz/wIAAQACAAMAAAD0/wIAAQACAAMAAAALAAIAAQACAAMAAAAMAAIAAQACAAMAAAANAAIAAQACAAMAAAAOAAIAAQACAAMAAAAPAAIAAQADAAMAAAALAP3/AQACAAMAAAAMAP3/AQACAAMAAAANAP3/AQACAAMAAAAOAP3/AQACAAMAAAAPAP3/AQADAAMAAAA=")
+tile_set = ExtResource("2_js7pq")
+
+[node name="FrontLayer" type="TileMapLayer" parent="." unique_id=572874101]
+tile_map_data = PackedByteArray("AAAAAP//AAALAAAAAAD/////AAAIAAAAAAD//wAAAAAIAAMAAAAAAAAAAAALAAMAAAD//wQAAAABAAMAAAAAAAQAAAADAAMAAAD///v/AAABAAMAAAAAAPv/AAADAAMAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAIAAAD7////AAAAAAAAAAD7/wAAAAAAAAIAAAD6//r/AAAIAAAAAAD6//v/AAAIAAMAAAD7//v/AAALAAMAAAD7//r/AAALAAAAAAAEAPr/AAAIAAAAAAAEAPv/AAAIAAMAAAAFAPv/AAALAAMAAAAFAPr/AAALAAAAAAD7/wQAAAALAAAAAAD7/wUAAAALAAMAAAD6/wUAAAAIAAMAAAD6/wQAAAAIAAAAAAAEAAQAAAAIAAAAAAAEAAUAAAAIAAMAAAAFAAUAAAALAAMAAAAFAAQAAAALAAAAAAD1//z/AAAAAAAAAAD1//3/AAAAAAEAAAD1//7/AAAAAAEAAAD1////AAAAAAEAAAD1/wAAAAAAAAEAAAD1/wEAAAAAAAEAAAD1/wIAAAAAAAEAAAD1/wMAAAAAAAIAAAAKAPz/AAAAAAAAAAAKAP3/AAAAAAEAAAAKAP7/AAAAAAEAAAAKAP//AAAAAAEAAAAKAAAAAAAAAAEAAAAKAAEAAAAAAAEAAAAKAAIAAAAAAAEAAAAKAAMAAAAAAAIAAAD6//b/AAACAAMAAAD7//b/AAACAAMAAAD8//b/AAACAAMAAAD9//b/AAAFAAMAAAD+//b/AAAJAAMAAAD///b/AAAJAAMAAAAAAPb/AAAJAAMAAAABAPb/AAAJAAMAAAACAPb/AAAGAAMAAAADAPb/AAACAAMAAAAEAPb/AAACAAMAAAAFAPb/AAACAAMAAAAGAPb/AAACAAMAAAD5//b/AAACAAMAAAD4//b/AAACAAMAAAD3//b/AAACAAMAAAD2//b/AAACAAMAAAD1//b/AAACAAMAAAD0//b/AAACAAMAAADx//b/AAAJAAIAAADx//X/AAAKAAAAAADw//b/AAAJAAIAAADw//X/AAAKAAAAAADw//f/AAAJAAIAAADx//f/AAAGAAIAAADz//b/AAAGAAAAAADy//b/AAAGAAEAAADv//X/AAAIAAAAAADv//b/AAAIAAEAAADv//f/AAAIAAEAAADw//j/AAAFAAIAAADw//n/AAAEAAIAAADw//r/AAAAAAEAAADw//v/AAAAAAEAAADw//z/AAAAAAEAAADw//3/AAAAAAEAAADw//7/AAAAAAEAAADw////AAAAAAEAAADw/wAAAAAAAAEAAADw/wEAAAAHAAEAAADw/wIAAAALAAIAAADw/wMAAAAHAAIAAADw/wQAAAAAAAEAAADw/wUAAAAAAAEAAADw/wYAAAAAAAEAAADv//j/AAAIAAMAAADy//X/AAALAAAAAADx//j/AAALAAIAAADy//f/AAAJAAMAAADx//n/AAALAAMAAADz//f/AAALAAMAAAAPAP//AAAAAAEAAAAPAP7/AAAAAAEAAAAPAP3/AAAAAAEAAAAPAPz/AAAAAAEAAAAPAPv/AAAAAAEAAAAPAPr/AAAAAAEAAAAHAPb/AAACAAMAAAAIAPb/AAACAAMAAAAJAPb/AAACAAMAAAAKAPb/AAACAAMAAAALAPb/AAACAAMAAAAMAPb/AAAFAAAAAAANAPb/AAAFAAEAAAAOAPb/AAAJAAIAAAAPAPb/AAAJAAIAAAAPAPf/AAAJAAIAAAAPAPj/AAAGAAIAAAAMAPf/AAAIAAMAAAANAPf/AAAJAAMAAAAOAPf/AAAFAAIAAAAOAPj/AAAIAAEAAAAOAPn/AAAIAAMAAAAPAPn/AAAHAAIAAAANAPX/AAAIAAAAAAAOAPX/AAAKAAAAAAAPAPX/AAAKAAAAAAAQAPX/AAALAAAAAAAQAPb/AAALAAIAAAAQAPf/AAALAAIAAAAQAPj/AAALAAMAAAAPAAAAAAAAAAEAAAAPAAEAAAAEAAEAAAAPAAIAAAAIAAEAAAAPAAMAAAAEAAIAAAAPAAQAAAAAAAEAAAAPAAUAAAAAAAEAAAAPAAYAAAAAAAEAAADw/wcAAAAAAAEAAADw/wgAAAAAAAEAAADw/wkAAAAAAAEAAADw/woAAAAAAAEAAADw/wsAAAAAAAEAAADw/wwAAAAEAAEAAADw/w0AAAAFAAEAAADx/w0AAAAGAAEAAADy/w0AAAAKAAAAAADz/w0AAAAKAAAAAAD0/w0AAAAKAAAAAAD1/w0AAAAKAAAAAAD2/w0AAAAKAAAAAAD3/w0AAAAKAAAAAAD4/w0AAAAGAAAAAAD5/w0AAAACAAMAAAD6/w0AAAACAAMAAAD7/w0AAAAFAAAAAAD8/w0AAAAKAAAAAAD9/w0AAAAKAAAAAAD+/w0AAAAKAAAAAAD//w0AAAAKAAAAAAAAAA0AAAAKAAAAAAABAA0AAAAKAAAAAAACAA0AAAAKAAAAAAADAA0AAAAKAAAAAAAEAA0AAAAGAAAAAAAFAA0AAAACAAMAAAAGAA0AAAACAAMAAAAIAA0AAAAKAAAAAAAHAA0AAAAFAAAAAAAJAA0AAAAKAAAAAAAKAA0AAAAKAAAAAAALAA0AAAAKAAAAAAAMAA0AAAAKAAAAAAANAA0AAAAKAAAAAAAOAA0AAAAFAAEAAAAPAA0AAAAGAAEAAAAPAAwAAAAHAAEAAAAPAAsAAAAAAAEAAAAPAAoAAAAAAAEAAAAPAAkAAAAAAAEAAAAPAAgAAAAAAAEAAAAPAAcAAAAAAAEAAAD//wkAAAAIAAEAAAD//woAAAAIAAMAAAAAAAkAAAALAAIAAAAAAAoAAAALAAMAAAD//wgAAAAIAAAAAAAAAAgAAAALAAAAAADv/w0AAAAIAAAAAADv/w4AAAAIAAMAAADw/w4AAAAFAAIAAADx/w4AAAAJAAIAAADy/w4AAAAGAAIAAADz/w4AAAAJAAMAAAD0/w4AAAAJAAMAAAD1/w4AAAAJAAMAAAD2/w4AAAAJAAMAAAD3/w4AAAAJAAMAAAD4/w4AAAALAAMAAAAQAA0AAAALAAAAAAAQAA4AAAALAAMAAAAPAA4AAAAGAAIAAAAOAA4AAAAJAAIAAAANAA4AAAAFAAIAAAAMAA4AAAAJAAMAAAALAA4AAAAJAAMAAAAKAA4AAAAJAAMAAAAJAA4AAAAJAAMAAAAIAA4AAAAJAAMAAAAHAA4AAAAIAAMAAAD8/w4AAAAFAAIAAAD9/w4AAAAJAAIAAAD+/w4AAAAJAAIAAAD//w4AAAAJAAIAAAAAAA4AAAAJAAIAAAABAA4AAAAJAAIAAAACAA4AAAAJAAIAAAADAA4AAAAGAAIAAAAEAA4AAAALAAMAAAD7/w4AAAAIAAMAAAD8/w8AAAAIAAMAAAD9/w8AAAAJAAMAAAD+/w8AAAAJAAMAAAD//w8AAAAJAAMAAAAAAA8AAAAJAAMAAAABAA8AAAAJAAMAAAADAA8AAAALAAMAAAACAA8AAAAJAAMAAADw/w8AAAAIAAMAAADx/w8AAAAJAAMAAADy/w8AAAALAAMAAAAOAA8AAAAJAAMAAAAPAA8AAAALAAMAAAANAA8AAAAIAAMAAADx/wwAAAALAAAAAAAOAAwAAAAIAAAAAAD9//X/AAAIAAAAAAD+//X/AAAKAAAAAAD///X/AAAKAAAAAAAAAPX/AAAKAAAAAAABAPX/AAAKAAAAAAACAPX/AAALAAAAAADv/wEAAAAIAAAAAADv/wIAAAAIAAEAAADv/wMAAAAIAAMAAAAQAAEAAAALAAAAAAAQAAIAAAALAAIAAAAQAAMAAAALAAMAAAA=")
+tile_set = ExtResource("2_js7pq")
+
+[node name="Players" type="Node2D" parent="." unique_id=866843653]
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=849146361]
+
+[node name="0" type="Marker2D" parent="SpawnPoints" unique_id=381165103]
+position = Vector2(320, 0)
+
+[node name="1" type="Marker2D" parent="SpawnPoints" unique_id=76215134]
+position = Vector2(-320, 0)
+
+[node name="2" type="Marker2D" parent="SpawnPoints" unique_id=1938881330]
+position = Vector2(-1000, 1220)
+
+[node name="3" type="Marker2D" parent="SpawnPoints" unique_id=2045274179]
+position = Vector2(1000, 1220)
+
+[node name="4" type="Marker2D" parent="SpawnPoints" unique_id=88898139]
+position = Vector2(-1000, 0)
+
+[node name="5" type="Marker2D" parent="SpawnPoints" unique_id=125870506]
+position = Vector2(1000, 0)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=372454556]
+_spawnable_scenes = PackedStringArray("uid://b2exptiq1mpia")
+spawn_path = NodePath("../Players")
+spawn_limit = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2105127080]
+layer = -25
 
 [node name="BackGround" type="Control" parent="CanvasLayer" unique_id=1077349622]
 layout_mode = 3
@@ -36,23 +98,194 @@ grow_vertical = 2
 texture = ExtResource("2_2dftf")
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="CanvasLayer/BackGround" unique_id=539603009]
+[node name="Timer" type="Timer" parent="CanvasLayer/BackGround" unique_id=1213983846]
+one_shot = true
+
+[node name="HUI" type="CanvasLayer" parent="." unique_id=636130296]
+
+[node name="Control" type="Control" parent="HUI" unique_id=794796070]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bcbcq")
+
+[node name="ActionPanel" type="TextureRect" parent="HUI/Control" unique_id=431732308]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -232.0
+offset_top = -47.0
+offset_right = 232.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_kva58")
+stretch_mode = 5
+
+[node name="HBC" type="HBoxContainer" parent="HUI/Control/ActionPanel" unique_id=1597543033]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ListPlayersLabel" type="Label" parent="HUI/Control/ActionPanel/HBC" unique_id=669448179]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_filter = 0
+text = " ="
+label_settings = SubResource("LabelSettings_kva58")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="HUI/Control/ActionPanel/HBC" unique_id=539603009]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "00:00"
+label_settings = SubResource("LabelSettings_js7pq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="HUI/Control/ActionPanel/HBC" unique_id=341682394]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JoystickLeft" parent="HUI/Control" unique_id=525511495 instance=ExtResource("5_p1v5b")]
+layout_mode = 1
+offset_left = 150.0
+offset_top = -400.0
+offset_right = 450.0
+offset_bottom = -100.0
+pressed_color = Color(1, 1, 1, 1)
+
+[node name="Base" parent="HUI/Control/JoystickLeft" index="0"]
+modulate = Color(1, 1, 1, 0.39215687)
+
+[node name="Tip" parent="HUI/Control/JoystickLeft/Base" index="0"]
+texture = ExtResource("6_wygdx")
+
+[node name="JoystickRight" parent="HUI/Control" unique_id=1742065544 instance=ExtResource("5_p1v5b")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -450.0
+offset_top = -400.0
+offset_right = -150.0
+offset_bottom = -100.0
+grow_horizontal = 0
+pressed_color = Color(1, 1, 1, 1)
+use_input_actions = false
+fire = true
+
+[node name="Tip" parent="HUI/Control/JoystickRight/Base" index="0"]
+texture = ExtResource("7_wygdx")
+
+[node name="HealthProgressBar" type="TextureProgressBar" parent="HUI/Control" unique_id=1667617991]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_right = 256.0
+offset_bottom = 41.0
+grow_horizontal = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_fv4w7")
+texture_progress = SubResource("AtlasTexture_fvag4")
+
+[node name="ScreenWait" type="Control" parent="HUI" unique_id=1709904798]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bcbcq")
+
+[node name="TimeWaitLabel" type="Label" parent="HUI/ScreenWait" unique_id=459235648]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -29.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Wait 5 seconds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ListPlayers" type="Control" parent="HUI" unique_id=194871540]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bcbcq")
+script = ExtResource("9_fv4w7")
+player_scene = ExtResource("10_fvag4")
+
+[node name="ColorRect" type="ColorRect" parent="HUI/ListPlayers" unique_id=1588247767]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65882355)
+
+[node name="Label" type="Label" parent="HUI/ListPlayers" unique_id=593632619]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.5
-offset_top = -29.5
-offset_right = 93.5
-offset_bottom = 29.5
+offset_left = -116.0
+offset_top = -273.0
+offset_right = 117.0
+offset_bottom = -214.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "00:00"
-label_settings = SubResource("LabelSettings_js7pq")
+text = "Players"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="CanvasLayer/BackGround" unique_id=1213983846]
-one_shot = true
+[node name="VBoxContainer" type="VBoxContainer" parent="HUI/ListPlayers" unique_id=943607632]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -493.0
+offset_top = -187.0
+offset_right = 493.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1140848042]
+stream = ExtResource("11_kva58")
+volume_db = -10.0
+autoplay = true
+
+[editable path="HUI/Control/JoystickLeft"]
+[editable path="HUI/Control/JoystickRight"]

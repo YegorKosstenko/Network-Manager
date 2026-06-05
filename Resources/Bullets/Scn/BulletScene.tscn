@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://whs1b2v87fsx"]
+
+[ext_resource type="Script" uid="uid://bv4oxr3sqhxeu" path="res://Resources/Bullets/Scripts/BulletScript.gd" id="1_rhd12"]
+[ext_resource type="Material" uid="uid://xag4d0383hbn" path="res://Resources/BulletExplosion.tres" id="3_cqlwa"]
+[ext_resource type="Texture2D" uid="uid://bkvmydfn5saxg" path="res://Joystick/Textures/JoystickTip.png" id="3_f1xnl"]
+[ext_resource type="AudioStream" uid="uid://c1y77ra57rwgj" path="res://Hit6.wav" id="4_e0ctl"]
+[ext_resource type="AudioStream" path="res://explore.wav-843430a30eabc01449d7884355979c83.sample" id="5_mwm82"]
+
+[sub_resource type="Curve" id="Curve_oqaom"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), -0.0226592, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rhd12"]
+colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ntb0e"]
+radius = 12.0
+
+[node name="Bullet" type="Area2D" unique_id=1459776628]
+script = ExtResource("1_rhd12")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=41147517]
+top_level = true
+width = 24.0
+width_curve = SubResource("Curve_oqaom")
+gradient = SubResource("Gradient_rhd12")
+end_cap_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=183967476]
+shape = SubResource("CircleShape2D_ntb0e")
+
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=2089623442]
+z_index = 2
+emitting = false
+amount = 15
+texture = ExtResource("3_f1xnl")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+process_material = ExtResource("3_cqlwa")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1772295861]
+stream = ExtResource("4_e0ctl")
+autoplay = true
+
+[node name="AudioStreamPlayer2DEnd" type="AudioStreamPlayer2D" parent="." unique_id=83746527]
+stream = ExtResource("5_mwm82")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="Particles" to="." method="_on_particles_finished"]

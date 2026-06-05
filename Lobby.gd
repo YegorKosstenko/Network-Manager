@@ -11,6 +11,8 @@ extends Control
 @export var plus_30_sec_button_path : NodePath
 @export var minus_one_player_button_path : NodePath
 @export var plus_one_player_button_path : NodePath
+@export var connect_button_path : NodePath
+@export var skin_button_path : NodePath
 
 @export_group("LineEdits")
 @export var name_player_line_edit_path : NodePath
@@ -44,6 +46,8 @@ extends Control
 @onready var plus_30_sec_button : Button = get_node(plus_30_sec_button_path)
 @onready var minus_one_player_button : Button = get_node(minus_one_player_button_path)
 @onready var plus_one_player_button : Button = get_node(plus_one_player_button_path)
+@onready var connect_button : Button = get_node(connect_button_path)
+@onready var skin_button : Button = get_node(skin_button_path)
 
 @onready var name_player_line_edit : LineEdit = get_node(name_player_line_edit_path)
 @onready var name_room_line_edit : LineEdit = get_node(name_room_line_edit_path)
@@ -69,18 +73,22 @@ var time = 300:
 		@warning_ignore("integer_division")
 		time_label.text = "Time: %02d:%02d" % [time / 60, time % 60]
 
-var max_players = 6:
+var max_players : int = 6:
 	set(new_value):
 		max_players = clampi(new_value, 2, 6)
 		max_players_label.text = "Max. players: %d" % max_players
 
 var self_id = null
 var temp_room_id = 0
+var skin_id : int = 0
+var player_name : String = ""
+
 var error_texts = [
 	"Ups... The room has been deleted",
 	"The line for filling in\nthe name is empty", 
 	"The room name entry line is empty",
 	"The room is full",
+	"Failed connection"
 	]
 
 
@@ -95,6 +103,18 @@ func _ready() -> void:
 	plus_30_sec_button.pressed.connect(func(): time += 30)
 	minus_one_player_button.pressed.connect(func(): max_players -= 1)
 	plus_one_player_button.pressed.connect(func(): max_players += 1)
+	connect_button.pressed.connect(
+		func():
+			name_player_line_edit.text = name_player_line_edit.text.strip_edges()
+			
+			if name_player_line_edit.text == "":
+				_call_error_dialog(1)
+				return
+			
+			name_player_line_edit.text = name_player_line_edit.text.strip_edges()
+			
+			Network.client_init()
+	)
 	
 	@warning_ignore("integer_division")
 	time_label.text = "Time: %02d:%02d" % [time / 60, time % 60]
@@ -104,10 +124,9 @@ func _ready() -> void:
 	Network.leave.connect(_leave_end)
 	Network.error.connect(_call_error_dialog)
 	
-	menu_screen.visible = true
 	room_screen.visible = false
 	
-	self_id = multiplayer.get_unique_id()
+	#self_id = multiplayer.get_unique_id()
 
 
 func _on_start_create_room_pressed() -> void:
@@ -119,9 +138,13 @@ func _on_start_create_room_pressed() -> void:
 
 
 func _on_create_pressed() -> void:
+	name_room_line_edit.text = name_room_line_edit.text.strip_edges()
+	
 	if name_room_line_edit.text == "":
 		_call_error_dialog(2)
 		return
+	
+	name_room_line_edit.text = name_room_line_edit.text.strip_edges()
 	
 	Network.create_room.rpc_id(1, self_id, name_room_line_edit.text, name_player_line_edit.text, time, max_players)
 	menu_screen.visible = false

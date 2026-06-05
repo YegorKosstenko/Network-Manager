@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="384"
+   height="128"
+   viewBox="0 0 384 128"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="tiles.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="193.74726"
+     inkscape:cy="43.487067"
+     inkscape:window-width="1356"
+     inkscape:window-height="728"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="6"
+       enabled="true"
+       visible="true" />
+    <inkscape:page
+       x="0"
+       y="0"
+       width="384"
+       height="128"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="display:inline;fill:#666666;stroke:none;stroke-width:60.3397"
+       id="rect4"
+       width="256"
+       height="128"
+       x="0"
+       y="0" />
+    <rect
+       style="display:inline;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:11.1305"
+       id="rect21"
+       width="128"
+       height="128"
+       x="128"
+       y="7.0351729e-09" />
+    <path
+       id="path42"
+       style="display:inline;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:10.6667"
+       d="m 293.33333,0 v 5.3333333 h -32 V 69.333333 H 256 v 21.098958 h 5.33333 v 32.234379 h 64 V 128 h 21.33334 v -5.33333 h 32 V 58.666667 H 384 V 37.333333 h -5.33333 V 5.3333333 h -64 V 0 Z M 320,32 h 32 v 32 h -32 z" />
+    <path
+       id="rect5"
+       style="display:inline;fill:#404040;fill-opacity:1;stroke:none;stroke-width:8.53333"
+       d="m 152,0 v 8 h 80 V 0 Z m 104,0 v 24 h -8 v 80 h 8 v 24 h 72 v -8 H 264 V 88 h -8 V 72 h 8 V 8 h 32 V 0 Z m 56,0 v 8 h 64 v 32 h 8 V 0 Z M 5.3333333,5.3333333 V 90.666667 H 26.666667 V 5.3333333 Z m 31.9999997,0 V 90.666667 H 122.66667 V 5.3333333 Z M 128,24 v 80 h 8 V 24 Z m 24,0 v 16 h 16 V 24 Z m 64,0 v 16 h 16 V 24 Z M 58.666667,26.666667 H 69.333333 V 37.333333 H 58.666667 Z m 32,0 H 101.33333 V 37.333333 H 90.666667 Z M 288,32 v 8 h 8 v -8 z m 24,24 v 8 h 8 v -8 z m 64,0 v 64 h -32 v 8 h 40 V 56 Z M 58.666667,58.666667 H 69.333333 V 69.333333 H 58.666667 Z m 32,0 H 101.33333 V 69.333333 H 90.666667 Z M 344,64 v 8 h 8 V 64 Z M 152,88 v 16 h 16 V 88 Z m 64,0 v 16 h 16 V 88 Z m 104,0 v 8 h 8 V 88 Z M 5.3333333,101.33333 v 21.33334 H 26.666667 v -21.33334 z m 31.9999997,0 v 21.33334 H 122.66667 V 101.33333 Z M 152,120 v 8 h 80 v -8 z" />
+    <path
+       id="rect12"
+       style="display:inline;fill:#4d4d4d;stroke:none;stroke-width:53.3333"
+       d="M 8,8 V 88 H 24 V 8 Z m 32,0 v 80 h 80 V 8 Z M 56,24 H 72 V 40 H 56 Z m 32.151043,0 H 103.70833 V 40 H 88.151043 Z M 88,56 h 16 V 72 H 88 Z M 56,56.333333 H 72 V 72 H 56 Z M 8,104 v 16 h 16 v -16 z m 32,0 v 16 h 80 v -16 z" />
+    <path
+       id="rect26"
+       style="display:inline;fill:#666666;fill-opacity:1;stroke:none;stroke-width:10.6667"
+       d="m 154.66667,0 v 5.3333333 h 74.66666 V 0 Z M 256,0 v 26.666667 h -5.33333 V 101.33333 H 256 V 128 h 69.33333 v -5.33333 h -64 V 90.666667 H 256 V 69.333333 h 5.33333 V 5.3333333 h 32 V 0 Z m 58.66667,0 v 5.3333333 h 64 V 37.333333 H 384 V 0 Z M 128,26.666667 v 74.666663 h 5.33333 V 26.666667 Z m 26.66667,0 v 10.666666 h 10.66666 V 26.666667 Z m 64,0 v 10.666666 h 10.66666 V 26.666667 Z M 288,32 v 5.333333 h 5.33333 V 32 Z m 26.66667,26.666667 V 64 H 320 v -5.333333 z m 64,0 v 64.000003 h -32 V 128 H 384 V 58.666667 Z m -32,5.333333 v 5.333333 H 352 V 64 Z m -192,26.666667 v 10.666663 h 10.66666 V 90.666667 Z m 64,0 v 10.666663 h 10.66666 V 90.666667 Z m 101.33333,0 V 96 h 5.33333 V 90.666667 Z M 154.66667,122.66667 V 128 h 74.66666 v -5.33333 z" />
+  </g>
+</svg>
